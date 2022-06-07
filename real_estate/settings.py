@@ -7,12 +7,6 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-import datetime
-
-COLLECTION = 'funda-sale-' + \
-            datetime.datetime.today().strftime('%Y-%m-%d')  # -%H-%M')
-
-
 BOT_NAME = 'real_estate'
 
 SPIDER_MODULES = ['real_estate.spiders']
@@ -77,7 +71,7 @@ ITEM_PIPELINES = {
 MONGODB_SERVER = "localhost"
 MONGODB_PORT = 27017
 MONGODB_DB = "real-estate-db"
-MONGODB_COLLECTION = COLLECTION
+MONGODB_COLLECTION = "funda-sale"
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
