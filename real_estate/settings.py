@@ -7,6 +7,12 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import datetime
+
+COLLECTION = 'funda-sale-' + \
+            datetime.datetime.today().strftime('%Y-%m-%d')  # -%H-%M')
+
+
 BOT_NAME = 'real_estate'
 
 SPIDER_MODULES = ['real_estate.spiders']
@@ -65,8 +71,13 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 2
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'real_estate.pipelines.RealEstatePipeline': 300,
+   'real_estate.pipelines.MongoDBPipeline': 300,
 }
+
+MONGODB_SERVER = "localhost"
+MONGODB_PORT = 27017
+MONGODB_DB = "real-estate-db"
+MONGODB_COLLECTION = COLLECTION
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

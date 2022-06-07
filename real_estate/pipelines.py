@@ -5,19 +5,23 @@
 
 
 # useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
-from scrapy.exporters import JsonItemExporter
-import datetime
+from pymongo import MongoClient
+from scrapy.utils.project import get_project_settings
 
-class RealEstatePipeline:
+
+settings = get_project_settings()
+
+
+class MongoDBPipeline(object):
+
+    def __init__(self):
+        connection = MongoClient(
+            settings['MONGODB_SERVER'],
+            settings['MONGODB_PORT'])
+        
+        db = connection[settings['MONGODB_DB']]
+        self.collection = db[settings['MONGODB_COLLECTION']]
+
     def process_item(self, item, spider):
-        
-        filename = item['/Users/qncysnsi/Python/real-estate/funda/output/housing-sale-' + datetime.datetime.today().strftime('%Y-%m-%d')]
-        
-        del item['/Users/qncysnsi/Python/real-estate/funda/output/housing-sale-' + datetime.datetime.today().strftime('%Y-%m-%d')]
-
-        # if the file exists it will append the data 
-        JsonItemExporter(open(filename, "w+")).export_item(item)
-
+        self.collection.insert_one(dict(item))
         return item
-    
