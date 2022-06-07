@@ -3,7 +3,6 @@ import scrapy
 from scrapy.crawler import CrawlerProcess
 from scrapy.selector import Selector
 import datetime
-import json
 
 from real_estate.items import RealEstateItem
 
